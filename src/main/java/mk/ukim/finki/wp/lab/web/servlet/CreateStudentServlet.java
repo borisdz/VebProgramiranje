@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="create-student", urlPatterns = "/CreateStudent")
+@WebServlet(name="create-student", urlPatterns = "/createStudent")
 public class CreateStudentServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
     private final StudentServiceImpl studentService;
@@ -34,6 +34,6 @@ public class CreateStudentServlet extends HttpServlet {
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         studentService.save(username, password, name, surname);
-        resp.sendRedirect("/AddStudent");
+        resp.sendRedirect("/addStudent");
     }
 }

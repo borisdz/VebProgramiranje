@@ -32,6 +32,6 @@ public class CoursesListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().setAttribute("courseId", req.getParameter("courseId"));
-        resp.sendRedirect("/AddStudent");
+        resp.sendRedirect("/addStudent");
     }
 }

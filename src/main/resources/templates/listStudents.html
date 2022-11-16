@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="mk">
 <head>
     <meta charset="utf-8">
     <title>Add new Student to Course</title>
@@ -37,13 +37,14 @@
 
     <form th:method="POST" th:action="@{/addStudent}">
         <div th:each="student: ${students}">
+            <!--/*@thymesVar id="student" type="mk.ukim.finki.wp.lab.model.Student"*/-->
             <input type="radio" name="username" th:value="${student.username}" th:text="${student.name + ' ' +student.surname}">
         </div>
 
         <input type="submit" value="Submit">
     </form><br/>
 
-    <a href="/StudentEnrollmentSummary"></a>
+    <a href="/studentEnrollmentSummary"></a>
 </section>
 <aside>
     <table>

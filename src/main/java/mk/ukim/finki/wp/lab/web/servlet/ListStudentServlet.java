@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="student-servlet", urlPatterns = "/AddStudent")
+@WebServlet(name="student-servlet", urlPatterns = "/addStudent")
 public class ListStudentServlet extends HttpServlet {
 
     private final StudentServiceImpl studentService;
@@ -32,6 +32,6 @@ public class ListStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().setAttribute("username", req.getParameter("username"));
-        resp.sendRedirect("/StudentEnrollmentSummary");
+        resp.sendRedirect("/studentEnrollmentSummary");
     }
 }

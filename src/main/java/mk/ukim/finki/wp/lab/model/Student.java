@@ -1,5 +1,8 @@
 package mk.ukim.finki.wp.lab.model;
 
+import lombok.Data;
+
+@Data
 public class Student {
     public String username;
     public String password;
