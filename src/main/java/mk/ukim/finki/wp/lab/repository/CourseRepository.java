@@ -29,4 +29,17 @@ public class CourseRepository {
         course.students.add(student);
         return course;
     }
+
+    public Optional<Course> findByName(String name){
+        return DataHolder.courses.stream().filter(i->i.name.equals(name)).findFirst();
+    }
+
+    public Course addCourse(Course course){
+        DataHolder.courses.add(course);
+        return course;
+    }
+
+    public void deleteCourse(Long id) {
+        DataHolder.courses.removeIf(i->i.courseId.equals(id));
+    }
 }

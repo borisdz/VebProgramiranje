@@ -13,8 +13,8 @@ public class DataHolder {
 
     @PostConstruct
     public void init() {
-        courses.add(new Course(123456L, "Veb Programiranje", "Veb programiranje so Java Spring", students));
-        courses.add(new Course(19412L, "Verojatnost i Statistika", "Najtezok predmet na FINKI", students));
+        courses.add(new Course("Veb Programiranje", "Veb programiranje so Java Spring", students));
+        courses.add(new Course("Verojatnost i Statistika", "Najtezok predmet na FINKI", students));
         students.add(new Student("borisdz", "bd", "Boris", "Dzotov"));
         students.add(new Student("ilijadz", "id", "Ilija", "Dzotov"));
     }
