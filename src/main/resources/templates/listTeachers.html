@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>List Teachers</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<a th:href="@{/teachers/addTeacher}"> Add new Teacher </a>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Teacher id</th>
+    <th scope="col">Teacher Name</th>
+    <th scope="col">Teacher Surname</th>
+    <th scope="col">Edit or Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="teacher: ${teacherList}">
+    <td th:text="${teacher.getId()}"></td>
+    <td th:text="${teacher.getName()}"></td>
+    <td th:text="${teacher.getSurname()}"></td>
+    <td> <a th:href="@{/teachers/edit/{id} (id = ${teacher.getId()})}" class="btn btn-info">Edit</a> <a th:href="@{/teachers/delete/{id} (id=${teacher.getId()})}" class="btn btn-danger">Delete</a></td>
+  </tr>
+  </tbody>
+</table>

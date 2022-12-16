@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Welcome and Choose a Course</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+    #red
+    {
+      color:red;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Courses List</h1>
+  <h1 th:if="${hasError}" th:text="${error}" id="red"></h1>
+  <h2> Number of sessions </h2>
+  <h3 th:text="${users}"></h3>
+  <a th:href="@{/CourseEnrollmentSummary}">Find all courses by selected student</a></br>
+  <a href="/courses/addCourse">Add new Course</a></br>
+  <a href="/teachers/allTeachers"> List all Teachers </a>
+</header>
+<main>
+  <form th:method="POST" th:action="@{/courses}">
+    <h2>Choose course: (<a th:href="@{/courses/populate}">Populate</a>)</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+        <th scope="col">Course Description</th>
+        <th scope="col">Teacher</th>
+        <th scope="col">Edit or Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="course: ${coursesList}">
+        <td> <input  type="radio" name="courseId" th:value="${course.getCourseId()}" th:text="${course.getName()}"> </td>
+        <td th:text="${course.getDescription()}"></td>
+        <td th:text="${course.getTeacher().getName()+ ' ' + course.getTeacher().getSurname()}"></td>
+        <td> <a th:href="@{/courses/edit/{id} (id = ${course.getCourseId()})}" class="btn btn-info">Edit</a> <a th:href="@{/courses/delete/{id} (id=${course.getCourseId()})}"class="btn btn-danger">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <input type="submit" th:value="Submit"/>
+  </form>
+  <a th:href="@{/Logout}">Invalidate Session</a>
+</main>
+</body>
+</html>

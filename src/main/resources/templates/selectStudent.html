@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title> WP lab - Select a student here </title>
+
+</head>
+<body>
+<header>
+  <h1> Select student to find courses! </h1>
+  <form th:method="POST" th:action="@{/CourseEnrollmentSummary}">
+    <ul>
+      <li >
+        <input type="radio" name="selectedStudent" th:each="student : ${studentsList}" th:text="${student.getName()}" th:value="${student.getName()}+'-'+${student.getSurname()} + '-' + ${student.getUsername()}">
+        <input type="submit" th:value="Submit">
+      </li>
+    </ul>
+
+  </form>
+</header>
+</body>
+</html>
