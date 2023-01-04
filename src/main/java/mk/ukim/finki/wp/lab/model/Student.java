@@ -2,9 +2,20 @@ package mk.ukim.finki.wp.lab.model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Data
+@Entity
 public class Student {
-    String username, password, name, surname;
+    @Id
+    String username;
+
+    String password;
+
+    String name;
+
+    String surname;
 
     public Student(String username, String password, String name, String surname) {
         this.username = username;
@@ -12,4 +23,6 @@ public class Student {
         this.name = name;
         this.surname = surname;
     }
+
+    public Student() {}
 }

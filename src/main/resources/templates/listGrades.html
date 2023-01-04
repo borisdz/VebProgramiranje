@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List Grades</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<a th:href="@{/courses}">Back to all courses </a>
+<h1> Showing all Grades </h1>
+<h1 th:if="${hasError}" th:text="${error}" id="red"></h1>
+<form th:action="@{/grades/allGrades}">
+    <h3 style="color:green">Filter grades by date here..</h3>
+    <input type="datetime-local" name="from">
+    <input type="datetime-local" name="to">
+    <select name="courseId">
+        <option th:each="course : ${courses}"
+                th:value="${course.getCourseId()}"
+                th:text="${course.getName()}">
+        </option>
+    </select>
+    <input type="submit">
+</form>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Student</th>
+        <th scope="col">Course</th>
+        <th scope="col">Date Added</th>
+        <th scope="col">Grade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="grade: ${grades}">
+        <td th:text="${grade.getStudent().getName()} + ' ' + ${grade.getStudent().getSurname()}"></td>
+        <td th:text="${grade.getCourse().getName()}"></td>
+        <td th:text="${#temporals.format(grade.getTimestamp(),'dd-MM-yyyy HH:mm:ss')}"></td>
+        <td th:text="${grade.getGrade()}"></td>
+    </tr>
+    </tbody>
+</table>
+</html>

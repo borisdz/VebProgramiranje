@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.lab.repository;
+package mk.ukim.finki.wp.lab.repository.inMemory;
 
 import lombok.Data;
 import mk.ukim.finki.wp.lab.model.Course;

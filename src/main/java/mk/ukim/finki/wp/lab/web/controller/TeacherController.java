@@ -35,8 +35,8 @@ public class TeacherController {
                               @RequestParam String surname){
         if(teacherId != null){
             Teacher zemi = teacherService.findById(Long.parseLong(teacherId));
-            zemi.setName(name);
-            zemi.setSurname(surname);
+            zemi.getTeacherFullName().setName(name);
+            zemi.getTeacherFullName().setSurname(surname);
         } else{
             long count = teacherService.findAll().size();
             teacherService.addTeacher(name, surname, count);

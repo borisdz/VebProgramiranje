@@ -4,12 +4,14 @@ import mk.ukim.finki.wp.lab.model.Course;
 import mk.ukim.finki.wp.lab.model.Student;
 import mk.ukim.finki.wp.lab.model.exceptions.CourseAlreadyHereException;
 import mk.ukim.finki.wp.lab.model.exceptions.CourseNotFoundException;
-import mk.ukim.finki.wp.lab.repository.CourseRepository;
+import mk.ukim.finki.wp.lab.repository.jpa.CourseRepository;
 import mk.ukim.finki.wp.lab.service.CourseService;
 import mk.ukim.finki.wp.lab.service.StudentService;
 import mk.ukim.finki.wp.lab.service.TeacherService;
+import mk.ukim.finki.wp.lab.model.exceptions.StudentAlreadyInCourseException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,32 +28,42 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Student> listStudentsByCourse(Long courseId) {
-        return courseRepository.findAllStudentsByCourse(courseId);
+        Course c = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
+        return c.getStudents();
     }
 
     @Override
     public Course addStudentInCourse(String username, Long courseId) {
         Student s = studentService.findByUsername(username);
-        return courseRepository.addStudentToCourse(s,courseRepository.findById(courseId).get());    }
+        Course c = courseRepository.findById(courseId).orElseThrow(CourseNotFoundException::new);
+
+        if (!c.getStudents().contains(s)) {
+            c.getStudents().add(s);
+            courseRepository.save(c);
+        }else
+            throw new StudentAlreadyInCourseException();
+        return c;
+    }
 
     @Override
+    @Transactional
     public Course addCourse(String name, String description, Long teacherId) {
         if(courseRepository.findByName(name).isPresent())
             throw new CourseAlreadyHereException();
         Course vrati = new Course(name, description);
         vrati.setTeacher(teacherService.findById(teacherId));
-        courseRepository.addCourse(vrati);
+        courseRepository.save(vrati);
         return vrati;
     }
 
     @Override
     public void deleteCourse(Long id) {
-        courseRepository.deleteCourse(id);
+        courseRepository.deleteById(id);
     }
 
     @Override
     public List<Course> listAllCourses() {
-        return courseRepository.findAllCourses();
+        return courseRepository.findAll();
     }
 
     @Override
